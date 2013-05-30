@@ -1,0 +1,916 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Idea Platform\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: Benno Kruit <bennokr@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_c\n"
+"X-Poedit-Basepath: ../..\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: idea-platform\n"
+
+msgid "Project idea sharing platform."
+msgstr ""
+
+
+msgid "Idea platform %d"
+msgstr ""
+
+msgid "Idea Platform"
+msgstr ""
+
+#: idea-platform/admin/admin.php:8
+msgid "Ideas"
+msgstr ""
+
+#: idea-platform/admin/admin.php:13
+msgid "Edit Idea Platforms"
+msgstr ""
+
+#: idea-platform/admin/admin.php:13
+msgid "Edit"
+msgstr ""
+
+#: idea-platform/admin/admin.php:41 idea-platform/admin/admin.php:113
+msgid "You are not allowed to edit this item."
+msgstr ""
+
+#: idea-platform/admin/admin.php:154
+msgid "You are not allowed to delete this item."
+msgstr ""
+
+#: idea-platform/admin/admin.php:157
+msgid "Error in deleting."
+msgstr ""
+
+#: idea-platform/admin/admin.php:196 idea-platform/includes/classes.php:27
+msgid "Idea Platforms"
+msgstr ""
+
+#: idea-platform/admin/admin.php:233
+msgid "Generate Tag"
+msgstr ""
+
+#: idea-platform/admin/admin.php:260 idea-platform/admin/admin.php:292
+#: idea-platform/admin/admin.php:305
+#: idea-platform/admin/edit-idea-form.php:15
+msgid "Add New"
+msgstr ""
+
+#: idea-platform/admin/admin.php:264
+#, php-format
+msgid "Search results for &#8220;%s&#8221;"
+msgstr ""
+
+#: idea-platform/admin/admin.php:273
+msgid "Search Idea Platforms"
+msgstr ""
+
+#: idea-platform/admin/admin.php:291
+#, php-format
+msgid "Use the default language (%s)"
+msgstr ""
+
+#: idea-platform/admin/admin.php:295
+msgid "Or"
+msgstr ""
+
+#: idea-platform/admin/admin.php:300
+msgid "(select language)"
+msgstr ""
+
+#: idea-platform/admin/admin.php:312
+msgid "Form"
+msgstr ""
+
+#: idea-platform/admin/admin.php:325
+msgid "Messages"
+msgstr ""
+
+#: idea-platform/admin/admin.php:328
+msgid "Additional Settings"
+msgstr ""
+
+#: idea-platform/admin/admin.php:359
+msgid "Idea platform created."
+msgstr ""
+
+#: idea-platform/admin/admin.php:361
+msgid "Idea platform saved."
+msgstr ""
+
+#: idea-platform/admin/admin.php:363
+msgid "Idea platform deleted."
+msgstr ""
+
+#: idea-platform/admin/admin.php:380
+msgid "Settings"
+msgstr ""
+
+#: idea-platform/admin/admin.php:392
+msgid "Docs"
+msgstr ""
+
+#: idea-platform/admin/admin.php:394
+msgid "FAQ"
+msgstr ""
+
+#: idea-platform/admin/admin.php:396
+msgid "Support"
+msgstr ""
+
+#: idea-platform/admin/admin.php:434
+msgid "Donate"
+msgstr ""
+
+#: idea-platform/admin/admin.php:454
+#, php-format
+msgid ""
+"<strong>Idea Platform %1$s requires WordPress %2$s or higher.</strong> "
+"Please <a href=\"%3$s\">update WordPress</a> first."
+msgstr ""
+
+#: idea-platform/admin/edit-idea-form.php:46
+msgid ""
+"Copy this code and paste it into your post, page or text widget content."
+msgstr ""
+
+#: idea-platform/admin/edit-idea-form.php:52
+msgid "Old code is also available."
+msgstr ""
+
+#: idea-platform/admin/edit-idea-form.php:60
+msgid "Save"
+msgstr ""
+
+#: idea-platform/admin/edit-idea-form.php:67
+#: idea-platform/admin/includes/class-idea-forms-list-table.php:112
+msgid "Copy"
+msgstr ""
+
+#: idea-platform/admin/edit-idea-form.php:72
+#: idea-platform/admin/includes/class-idea-forms-list-table.php:83
+msgid "Delete"
+msgstr ""
+
+#: idea-platform/admin/edit-idea-form.php:74
+msgid ""
+"You are about to delete this idea form.\n"
+"  'Cancel' to stop, 'OK' to delete."
+msgstr ""
+
+#: idea-platform/admin/includes/class-idea-forms-list-table.php:11
+msgid "Title"
+msgstr ""
+
+#: idea-platform/admin/includes/class-idea-forms-list-table.php:12
+msgid "Shortcode"
+msgstr ""
+
+#: idea-platform/admin/includes/class-idea-forms-list-table.php:13
+msgid "Author"
+msgstr ""
+
+#: idea-platform/admin/includes/class-idea-forms-list-table.php:14
+msgid "Date"
+msgstr ""
+
+#: idea-platform/admin/includes/class-idea-forms-list-table.php:117
+#, php-format
+msgid "Edit &#8220;%s&#8221;"
+msgstr ""
+
+#: idea-platform/admin/includes/class-idea-forms-list-table.php:154
+msgid "Y/m/d g:i:s A"
+msgstr ""
+
+#: idea-platform/admin/includes/class-idea-forms-list-table.php:161
+#, php-format
+msgid "%s ago"
+msgstr ""
+
+#: idea-platform/admin/includes/class-idea-forms-list-table.php:163
+msgid "Y/m/d"
+msgstr ""
+
+#: idea-platform/admin/includes/meta-boxes.php:44
+msgid "To:"
+msgstr ""
+
+#: idea-platform/admin/includes/meta-boxes.php:49
+msgid "From:"
+msgstr ""
+
+#: idea-platform/admin/includes/meta-boxes.php:54
+msgid "Subject:"
+msgstr ""
+
+#: idea-platform/admin/includes/meta-boxes.php:61
+msgid "Additional headers:"
+msgstr ""
+
+#: idea-platform/admin/includes/meta-boxes.php:66
+msgid "File attachments:"
+msgstr ""
+
+#: idea-platform/admin/includes/meta-boxes.php:74
+msgid "Use HTML content type"
+msgstr ""
+
+#: idea-platform/admin/includes/meta-boxes.php:80
+#: idea-platform/includes/functions.php:117
+msgid "Message body:"
+msgstr ""
+
+#: idea-platform/includes/classes.php:28
+msgid "Idea Platform"
+msgstr ""
+
+#: idea-platform/includes/classes.php:782
+msgid "Untitled"
+msgstr ""
+
+#: idea-platform/includes/controller.php:243
+msgid "Sending ..."
+msgstr ""
+
+#: idea-platform/includes/functions.php:21
+#, php-format
+msgid ""
+"%1$s is <strong>deprecated</strong> since Idea Platform version %2$s! Use "
+"%3$s instead."
+msgstr ""
+
+#: idea-platform/includes/functions.php:23
+#, php-format
+msgid ""
+"%1$s is <strong>deprecated</strong> since Idea Platform version %2$s with "
+"no alternative available."
+msgstr ""
+
+#: idea-platform/includes/functions.php:30
+msgid "Sender's message was sent successfully"
+msgstr ""
+
+#: idea-platform/includes/functions.php:31
+msgid "Your message was sent successfully. Thanks."
+msgstr ""
+
+#: idea-platform/includes/functions.php:35
+msgid "Sender's message was failed to send"
+msgstr ""
+
+#: idea-platform/includes/functions.php:36
+#: idea-platform/includes/functions.php:46
+msgid ""
+"Failed to send your message. Please try later or idea the administrator "
+"by another method."
+msgstr ""
+
+#: idea-platform/includes/functions.php:40
+msgid "Validation errors occurred"
+msgstr ""
+
+#: idea-platform/includes/functions.php:41
+msgid ""
+"Validation errors occurred. Please confirm the fields and submit it again."
+msgstr ""
+
+#: idea-platform/includes/functions.php:45
+msgid "Submission was referred to as spam"
+msgstr ""
+
+#: idea-platform/includes/functions.php:50
+msgid "There are terms that the sender must accept"
+msgstr ""
+
+#: idea-platform/includes/functions.php:51
+msgid "Please accept the terms to proceed."
+msgstr ""
+
+#: idea-platform/includes/functions.php:55
+msgid "Email address that the sender entered is invalid"
+msgstr ""
+
+#: idea-platform/includes/functions.php:56
+msgid "Email address seems invalid."
+msgstr ""
+
+#: idea-platform/includes/functions.php:60
+msgid "There is a field that the sender must fill in"
+msgstr ""
+
+#: idea-platform/includes/functions.php:61
+msgid "Please fill the required field."
+msgstr ""
+
+#: idea-platform/includes/functions.php:85
+msgid "Your Name"
+msgstr ""
+
+#: idea-platform/includes/functions.php:85
+#: idea-platform/includes/functions.php:87
+msgid "(required)"
+msgstr ""
+
+#: idea-platform/includes/functions.php:87
+msgid "Your Email"
+msgstr ""
+
+#: idea-platform/includes/functions.php:89
+msgid "Subject"
+msgstr ""
+
+#: idea-platform/includes/functions.php:91
+msgid "Your Message"
+msgstr ""
+
+#: idea-platform/includes/functions.php:93
+#: idea-platform/modules/submit.php:45
+msgid "Send"
+msgstr ""
+
+#: idea-platform/includes/functions.php:101
+#, php-format
+msgid "From: %s"
+msgstr ""
+
+#: idea-platform/includes/functions.php:102
+#, php-format
+msgid "Subject: %s"
+msgstr ""
+
+#: idea-platform/includes/functions.php:103
+msgid "Message Body:"
+msgstr ""
+
+#: idea-platform/includes/functions.php:104
+#: idea-platform/includes/functions.php:118
+#, php-format
+msgid "This mail is sent via idea form on %1$s %2$s"
+msgstr ""
+
+#: idea-platform/includes/functions.php:190
+msgid "Afrikaans"
+msgstr ""
+
+#: idea-platform/includes/functions.php:191
+msgid "Albanian"
+msgstr ""
+
+#: idea-platform/includes/functions.php:192
+msgid "Arabic"
+msgstr ""
+
+#: idea-platform/includes/functions.php:193
+msgid "Armenian"
+msgstr ""
+
+#: idea-platform/includes/functions.php:194
+msgid "Azerbaijani"
+msgstr ""
+
+#: idea-platform/includes/functions.php:195
+msgid "Bangla"
+msgstr ""
+
+#: idea-platform/includes/functions.php:196
+msgid "Basque"
+msgstr ""
+
+#: idea-platform/includes/functions.php:197
+msgid "Belarusian"
+msgstr ""
+
+#: idea-platform/includes/functions.php:198
+msgid "Bosnian"
+msgstr ""
+
+#: idea-platform/includes/functions.php:199
+msgid "Brazilian Portuguese"
+msgstr ""
+
+#: idea-platform/includes/functions.php:200
+msgid "Bulgarian"
+msgstr ""
+
+#: idea-platform/includes/functions.php:201
+msgid "Catalan"
+msgstr ""
+
+#: idea-platform/includes/functions.php:202
+msgid "Chinese (Simplified)"
+msgstr ""
+
+#: idea-platform/includes/functions.php:203
+msgid "Chinese (Traditional)"
+msgstr ""
+
+#: idea-platform/includes/functions.php:204
+msgid "Croatian"
+msgstr ""
+
+#: idea-platform/includes/functions.php:205
+msgid "Czech"
+msgstr ""
+
+#: idea-platform/includes/functions.php:206
+msgid "Danish"
+msgstr ""
+
+#: idea-platform/includes/functions.php:207
+msgid "Dutch"
+msgstr ""
+
+#: idea-platform/includes/functions.php:208
+msgid "English"
+msgstr ""
+
+#: idea-platform/includes/functions.php:209
+msgid "Esperanto"
+msgstr ""
+
+#: idea-platform/includes/functions.php:210
+msgid "Estonian"
+msgstr ""
+
+#: idea-platform/includes/functions.php:211
+msgid "Finnish"
+msgstr ""
+
+#: idea-platform/includes/functions.php:212
+msgid "French"
+msgstr ""
+
+#: idea-platform/includes/functions.php:213
+msgid "Galician"
+msgstr ""
+
+#: idea-platform/includes/functions.php:214
+msgid "Georgian"
+msgstr ""
+
+#: idea-platform/includes/functions.php:215
+msgid "German"
+msgstr ""
+
+#: idea-platform/includes/functions.php:216
+msgid "Greek"
+msgstr ""
+
+#: idea-platform/includes/functions.php:217
+msgid "Hebrew"
+msgstr ""
+
+#: idea-platform/includes/functions.php:218
+msgid "Hindi"
+msgstr ""
+
+#: idea-platform/includes/functions.php:219
+msgid "Hungarian"
+msgstr ""
+
+#: idea-platform/includes/functions.php:220
+msgid "Indonesian"
+msgstr ""
+
+#: idea-platform/includes/functions.php:221
+msgid "Irish"
+msgstr ""
+
+#: idea-platform/includes/functions.php:222
+msgid "Italian"
+msgstr ""
+
+#: idea-platform/includes/functions.php:223
+msgid "Japanese"
+msgstr ""
+
+#: idea-platform/includes/functions.php:224
+msgid "Korean"
+msgstr ""
+
+#: idea-platform/includes/functions.php:225
+msgid "Latvian"
+msgstr ""
+
+#: idea-platform/includes/functions.php:226
+msgid "Lithuanian"
+msgstr ""
+
+#: idea-platform/includes/functions.php:227
+msgid "Macedonian"
+msgstr ""
+
+#: idea-platform/includes/functions.php:228
+msgid "Malay"
+msgstr ""
+
+#: idea-platform/includes/functions.php:229
+msgid "Malayalam"
+msgstr ""
+
+#: idea-platform/includes/functions.php:230
+msgid "Maltese"
+msgstr ""
+
+#: idea-platform/includes/functions.php:231
+msgid "Norwegian"
+msgstr ""
+
+#: idea-platform/includes/functions.php:232
+msgid "Persian"
+msgstr ""
+
+#: idea-platform/includes/functions.php:233
+msgid "Polish"
+msgstr ""
+
+#: idea-platform/includes/functions.php:234
+msgid "Portuguese"
+msgstr ""
+
+#: idea-platform/includes/functions.php:235
+msgid "Russian"
+msgstr ""
+
+#: idea-platform/includes/functions.php:236
+msgid "Romanian"
+msgstr ""
+
+#: idea-platform/includes/functions.php:237
+msgid "Serbian"
+msgstr ""
+
+#: idea-platform/includes/functions.php:238
+msgid "Sinhala"
+msgstr ""
+
+#: idea-platform/includes/functions.php:239
+msgid "Slovak"
+msgstr ""
+
+#: idea-platform/includes/functions.php:240
+msgid "Slovene"
+msgstr ""
+
+#: idea-platform/includes/functions.php:241
+msgid "Spanish"
+msgstr ""
+
+#: idea-platform/includes/functions.php:242
+msgid "Swedish"
+msgstr ""
+
+#: idea-platform/includes/functions.php:243
+msgid "Tamil"
+msgstr ""
+
+#: idea-platform/includes/functions.php:244
+msgid "Thai"
+msgstr ""
+
+#: idea-platform/includes/functions.php:245
+msgid "Tagalog"
+msgstr ""
+
+#: idea-platform/includes/functions.php:246
+msgid "Turkish"
+msgstr ""
+
+#: idea-platform/includes/functions.php:247
+msgid "Ukrainian"
+msgstr ""
+
+#: idea-platform/includes/functions.php:248
+msgid "Vietnamese"
+msgstr ""
+
+#: idea-platform/modules/acceptance.php:156
+msgid "Acceptance"
+msgstr ""
+
+#: idea-platform/modules/acceptance.php:165
+#: idea-platform/modules/captcha.php:215
+#: idea-platform/modules/checkbox.php:191 idea-platform/modules/file.php:241
+#: idea-platform/modules/quiz.php:182 idea-platform/modules/select.php:152
+#: idea-platform/modules/text.php:179 idea-platform/modules/textarea.php:140
+msgid "Name"
+msgstr ""
+
+#: idea-platform/modules/acceptance.php:170
+#: idea-platform/modules/acceptance.php:173
+#: idea-platform/modules/captcha.php:222
+#: idea-platform/modules/captcha.php:225
+#: idea-platform/modules/captcha.php:230
+#: idea-platform/modules/captcha.php:233
+#: idea-platform/modules/captcha.php:237
+#: idea-platform/modules/captcha.php:248
+#: idea-platform/modules/captcha.php:251
+#: idea-platform/modules/captcha.php:256
+#: idea-platform/modules/captcha.php:259
+#: idea-platform/modules/checkbox.php:196
+#: idea-platform/modules/checkbox.php:199 idea-platform/modules/file.php:246
+#: idea-platform/modules/file.php:249 idea-platform/modules/file.php:254
+#: idea-platform/modules/file.php:257 idea-platform/modules/quiz.php:187
+#: idea-platform/modules/quiz.php:190 idea-platform/modules/quiz.php:195
+#: idea-platform/modules/quiz.php:198 idea-platform/modules/select.php:157
+#: idea-platform/modules/select.php:160 idea-platform/modules/submit.php:71
+#: idea-platform/modules/submit.php:74 idea-platform/modules/submit.php:79
+#: idea-platform/modules/text.php:184 idea-platform/modules/text.php:187
+#: idea-platform/modules/text.php:192 idea-platform/modules/text.php:195
+#: idea-platform/modules/text.php:200 idea-platform/modules/text.php:211
+#: idea-platform/modules/textarea.php:145
+#: idea-platform/modules/textarea.php:148
+#: idea-platform/modules/textarea.php:153
+#: idea-platform/modules/textarea.php:156
+#: idea-platform/modules/textarea.php:161
+msgid "optional"
+msgstr ""
+
+#: idea-platform/modules/acceptance.php:179
+msgid "Make this checkbox checked by default?"
+msgstr ""
+
+#: idea-platform/modules/acceptance.php:180
+msgid "Make this checkbox work inversely?"
+msgstr ""
+
+#: idea-platform/modules/acceptance.php:181
+msgid "* That means visitor who accepts the term unchecks it."
+msgstr ""
+
+#: idea-platform/modules/acceptance.php:186
+#: idea-platform/modules/captcha.php:264
+#: idea-platform/modules/checkbox.php:219 idea-platform/modules/file.php:262
+#: idea-platform/modules/quiz.php:210 idea-platform/modules/select.php:177
+#: idea-platform/modules/submit.php:86 idea-platform/modules/text.php:219
+#: idea-platform/modules/textarea.php:169
+msgid "Copy this code and paste it into the form left."
+msgstr ""
+
+#: idea-platform/modules/captcha.php:73
+msgid ""
+"To use CAPTCHA, you need <a href=\"http://wordpress.org/extend/plugins/"
+"really-simple-captcha/\">Really Simple CAPTCHA</a> plugin installed."
+msgstr ""
+
+#: idea-platform/modules/captcha.php:187
+msgid "The code that sender entered does not match the CAPTCHA"
+msgstr ""
+
+#: idea-platform/modules/captcha.php:188
+msgid "Your entered code is incorrect."
+msgstr ""
+
+#: idea-platform/modules/captcha.php:201
+msgid "CAPTCHA"
+msgstr ""
+
+#: idea-platform/modules/captcha.php:212
+msgid "Note: To use CAPTCHA, you need Really Simple CAPTCHA plugin installed."
+msgstr ""
+
+#: idea-platform/modules/captcha.php:219
+msgid "Image settings"
+msgstr ""
+
+#: idea-platform/modules/captcha.php:230
+msgid "Foreground color"
+msgstr ""
+
+#: idea-platform/modules/captcha.php:233
+msgid "Background color"
+msgstr ""
+
+#: idea-platform/modules/captcha.php:237
+msgid "Image size"
+msgstr ""
+
+#: idea-platform/modules/captcha.php:238
+msgid "Small"
+msgstr ""
+
+#: idea-platform/modules/captcha.php:239
+msgid "Medium"
+msgstr ""
+
+#: idea-platform/modules/captcha.php:240
+msgid "Large"
+msgstr ""
+
+#: idea-platform/modules/captcha.php:245
+msgid "Input field settings"
+msgstr ""
+
+#: idea-platform/modules/captcha.php:265
+msgid "For image"
+msgstr ""
+
+#: idea-platform/modules/captcha.php:267
+msgid "For input field"
+msgstr ""
+
+#: idea-platform/modules/captcha.php:297
+#, php-format
+msgid ""
+"This idea form contains CAPTCHA fields, but the temporary folder for the "
+"files (%s) does not exist or is not writable. You can create the folder or "
+"change its permission manually."
+msgstr ""
+
+#: idea-platform/modules/captcha.php:303
+msgid ""
+"This idea form contains CAPTCHA fields, but the necessary libraries (GD "
+"and FreeType) are not available on your server."
+msgstr ""
+
+#: idea-platform/modules/checkbox.php:164
+msgid "Checkboxes"
+msgstr ""
+
+#: idea-platform/modules/checkbox.php:167
+msgid "Radio buttons"
+msgstr ""
+
+#: idea-platform/modules/checkbox.php:188 idea-platform/modules/file.php:240
+#: idea-platform/modules/select.php:151 idea-platform/modules/text.php:178
+#: idea-platform/modules/textarea.php:139
+msgid "Required field?"
+msgstr ""
+
+#: idea-platform/modules/checkbox.php:204
+#: idea-platform/modules/select.php:165
+msgid "Choices"
+msgstr ""
+
+#: idea-platform/modules/checkbox.php:206
+#: idea-platform/modules/select.php:167
+msgid "* One choice per line."
+msgstr ""
+
+#: idea-platform/modules/checkbox.php:210
+msgid "Put a label first, a checkbox last?"
+msgstr ""
+
+#: idea-platform/modules/checkbox.php:211
+msgid "Wrap each item with <label> tag?"
+msgstr ""
+
+#: idea-platform/modules/checkbox.php:213
+msgid "Make checkboxes exclusive?"
+msgstr ""
+
+#: idea-platform/modules/checkbox.php:221
+#: idea-platform/modules/select.php:179 idea-platform/modules/text.php:221
+#: idea-platform/modules/textarea.php:171
+msgid "And, put this code into the Mail fields below."
+msgstr ""
+
+#: idea-platform/modules/file.php:201
+msgid "Uploading a file fails for any reason"
+msgstr ""
+
+#: idea-platform/modules/file.php:202
+msgid "Failed to upload file."
+msgstr ""
+
+#: idea-platform/modules/file.php:206
+msgid "Uploaded file is not allowed file type"
+msgstr ""
+
+#: idea-platform/modules/file.php:207
+msgid "This file type is not allowed."
+msgstr ""
+
+#: idea-platform/modules/file.php:211
+msgid "Uploaded file is too large"
+msgstr ""
+
+#: idea-platform/modules/file.php:212
+msgid "This file is too large."
+msgstr ""
+
+#: idea-platform/modules/file.php:216
+msgid "Uploading a file fails for PHP error"
+msgstr ""
+
+#: idea-platform/modules/file.php:217
+msgid "Failed to upload file. Error occurred."
+msgstr ""
+
+#: idea-platform/modules/file.php:231
+msgid "File upload"
+msgstr ""
+
+#: idea-platform/modules/file.php:254
+msgid "File size limit"
+msgstr ""
+
+#: idea-platform/modules/file.php:254
+msgid "bytes"
+msgstr ""
+
+#: idea-platform/modules/file.php:257
+msgid "Acceptable file types"
+msgstr ""
+
+#: idea-platform/modules/file.php:264
+msgid "And, put this code into the File Attachments field below."
+msgstr ""
+
+#: idea-platform/modules/file.php:289
+#, php-format
+msgid ""
+"This idea form contains file uploading fields, but the temporary folder "
+"for the files (%s) does not exist or is not writable. You can create the "
+"folder or change its permission manually."
+msgstr ""
+
+#: idea-platform/modules/jetpack.php:21
+#, php-format
+msgid ""
+"<strong>Jetpack may cause problems for other plugins in certain cases.</"
+"strong> <a href=\"%s\" target=\"_blank\">See how to avoid it.</a>"
+msgstr ""
+
+#: idea-platform/modules/quiz.php:159
+msgid "Sender doesn't enter the correct answer to the quiz"
+msgstr ""
+
+#: idea-platform/modules/quiz.php:160
+msgid "Your answer is not correct."
+msgstr ""
+
+#: idea-platform/modules/quiz.php:173
+msgid "Quiz"
+msgstr ""
+
+#: idea-platform/modules/quiz.php:203
+msgid "Quizzes"
+msgstr ""
+
+#: idea-platform/modules/quiz.php:205
+msgid "* quiz|answer (e.g. 1+1=?|2)"
+msgstr ""
+
+#: idea-platform/modules/select.php:142
+msgid "Drop-down menu"
+msgstr ""
+
+#: idea-platform/modules/select.php:171
+msgid "Allow multiple selections?"
+msgstr ""
+
+#: idea-platform/modules/select.php:172
+msgid "Insert a blank item as the first option?"
+msgstr ""
+
+#: idea-platform/modules/submit.php:61
+msgid "Submit button"
+msgstr ""
+
+#: idea-platform/modules/submit.php:79
+msgid "Label"
+msgstr ""
+
+#: idea-platform/modules/text.php:155
+msgid "Text field"
+msgstr ""
+
+#: idea-platform/modules/text.php:158
+msgid "Email field"
+msgstr ""
+
+#: idea-platform/modules/text.php:200
+msgid "Akismet"
+msgstr ""
+
+#: idea-platform/modules/text.php:202
+msgid "This field requires author's name"
+msgstr ""
+
+#: idea-platform/modules/text.php:203
+msgid "This field requires author's URL"
+msgstr ""
+
+#: idea-platform/modules/text.php:205
+msgid "This field requires author's email address"
+msgstr ""
+
+#: idea-platform/modules/text.php:211 idea-platform/modules/textarea.php:161
+msgid "Default value"
+msgstr ""
+
+#: idea-platform/modules/text.php:214 idea-platform/modules/textarea.php:164
+msgid "Use this text as watermark?"
+msgstr ""
+
+#: idea-platform/modules/textarea.php:130
+msgid "Text area"
+msgstr ""

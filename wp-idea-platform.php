@@ -43,29 +43,9 @@ if ( ! defined( 'WPIDPL_PLUGIN_DIR' ) )
 if ( ! defined( 'WPIDPL_PLUGIN_URL' ) )
 	define( 'WPIDPL_PLUGIN_URL', untrailingslashit( plugins_url( '', __FILE__ ) ) );
 
-if ( ! defined( 'WPIDPL_PLUGIN_MODULES_DIR' ) )
-	define( 'WPIDPL_PLUGIN_MODULES_DIR', WPIDPL_PLUGIN_DIR . '/modules' );
-
-if ( ! defined( 'WPIDPL_LOAD_JS' ) )
-	define( 'WPIDPL_LOAD_JS', true );
-
-if ( ! defined( 'WPIDPL_LOAD_CSS' ) )
-	define( 'WPIDPL_LOAD_CSS', true );
-
-if ( ! defined( 'WPIDPL_AUTOP' ) )
-	define( 'WPIDPL_AUTOP', true );
-
-if ( ! defined( 'WPIDPL_USE_PIPE' ) )
-	define( 'WPIDPL_USE_PIPE', true );
-
-if ( ! defined( 'WPIDPL_ADMIN_READ_CAPABILITY' ) )
-	define( 'WPIDPL_ADMIN_READ_CAPABILITY', 'edit_posts' );
-
-if ( ! defined( 'WPIDPL_ADMIN_READ_WRITE_CAPABILITY' ) )
-	define( 'WPIDPL_ADMIN_READ_WRITE_CAPABILITY', 'publish_pages' );
-
-if ( ! defined( 'WPIDPL_VERIFY_NONCE' ) )
-	define( 'WPIDPL_VERIFY_NONCE', true );
+// Extra functionality (like spam, captcha, etc)
+ if ( ! defined( 'WPIDPL_PLUGIN_MODULES_DIR' ) )
+ 	define( 'WPIDPL_PLUGIN_MODULES_DIR', WPIDPL_PLUGIN_DIR . '/modules' );
 
 require_once WPIDPL_PLUGIN_DIR . '/settings.php';
 

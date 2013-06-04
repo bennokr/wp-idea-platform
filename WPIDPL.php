@@ -2,22 +2,38 @@
 class WPIDPL {
 
   public function __construct() {
+    $add_idea_func  = "wpidpl_add_idea";
     add_action( 'activate_' . WPIDPL_PLUGIN_BASENAME, array($this, 'install') );
     add_action( 'admin_menu', array($this, 'admin_menu'), 9 );
     add_action( 'plugins_loaded', array($this, 'add_shortcodes'), 1 );
+    add_action( 'wp_ajax_' . $add_idea_func, array($this, 'add_idea') );
+    add_action( 'wp_ajax_nopriv_' . $add_idea_func, array($this, 'add_idea') );
   }
 
   /* Install and default settings */
   public function install() {
     global $wpdb;
-    $table_name = $wpdb->prefix . "idpl";
+    $table_name = $wpdb->prefix . "idea_platform_ideas";
     $wpdb->query(
-      "CREATE TABLE $table_name (
-        `idea_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-        PRIMARY KEY (`idea_id`)
+      "CREATE TABLE `$table_name` (
+        `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+        `date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+        `votes` int(11) DEFAULT 0,
+        `status` int(11) DEFAULT 0,
+        `author_name` varchar(128) DEFAULT NULL,
+        `author_group` int(11) DEFAULT NULL,
+        `author_mail` varchar(128) DEFAULT NULL,
+        `title` varchar(256) DEFAULT NULL,
+        `description` text,
+        `data_source` varchar(128) DEFAULT NULL,
+        `data_location` varchar(128) DEFAULT NULL,
+        `data_open` tinyint(1) NOT NULL DEFAULT '1',
+        `files` int(11) DEFAULT NULL,
+        PRIMARY KEY (`id`)
       )");
   }
 
+  // Add the options to the wordpress admin menu
   public function admin_menu() {
     add_object_page( 
       __( 'Idea Platform','wpidpl' ), 
@@ -29,27 +45,64 @@ class WPIDPL {
     );
   }
   
+  // Add wordpress shortcodes
   public function add_shortcodes() {
     add_shortcode( 'idea-platform', array($this,'idea_platform_tag_func' ));
   }
 
   // The idea platform in a page
   public function idea_platform_tag_func() {
-    echo "This is the idea platform!";
+    global $wpdb;
+
+    // TODO: check GET for full page
+    // ELSE
+    // TODO: GET offset / sorting
+    $ideas = $wpdb->get_results("SELECT * FROM wp_9_idea_platform_ideas");
+    $submit_url = admin_url( 'admin-ajax.php' );
+    $add_idea_func = "wpidpl_add_idea"; // i don't understand php private vars
+    include WPIDPL_PLUGIN_DIR . "/list.php";
   }
 
   // Showing the admin page
   public function admin_management_page() {
-    echo "This is the admin page!";
+    include WPIDPL_PLUGIN_DIR . "/admin/admin.php";
   }
-  
-  private function getString() {
-    return "Dit is een string";
+
+  // Asynchorinous request
+  public function add_idea() {
+    // $response = json_encode( $_POST );
+    // TODO: use php array functions (diff, keys etc) to prevent all this repetition
+    if (isset($_POST['author_name']) && 
+        isset($_POST['author_name']) && 
+        isset($_POST['author_mail']) && 
+        isset($_POST['data_location']) && 
+        isset($_POST['data_source']) && 
+        isset($_POST['description']) && 
+        isset($_POST['title')) {
+    global $wpdb;
+    $table_name = $wpdb->prefix . "idea_platform_ideas";
+    // wpdb->insert sanitizes the input (afask)
+    $q = $wpdb->insert( 
+      $table_name, 
+      array( 
+        'author_name' => $_POST['author_name'],
+        'author_mail' => $_POST['author_mail'],
+        'data_location' => $_POST['data_location'],
+        'data_source' => $_POST['data_source'],
+        'description' => $_POST['description'],
+        'title' => $_POST['title']
+      )
+    );
+
+    //header( "Content-Type: application/json" );
+    var_dump($q);
+    exit;
+    }
   }
 
   // Building resource URLs
   private function plugin_url( $path = '' ) {
-    $url = untrailingslashit( WPCF7_PLUGIN_URL );
+    $url = untrailingslashit( WPIDPL_PLUGIN_URL );
     if ( ! empty( $path ) && is_string( $path ) && false === strpos( $path, '..' ) )
       $url .= '/' . ltrim( $path, '/' );
     return $url;

@@ -47,6 +47,7 @@ if ( ! defined( 'WPIDPL_PLUGIN_URL' ) )
  if ( ! defined( 'WPIDPL_PLUGIN_MODULES_DIR' ) )
  	define( 'WPIDPL_PLUGIN_MODULES_DIR', WPIDPL_PLUGIN_DIR . '/modules' );
 
-require_once WPIDPL_PLUGIN_DIR . '/settings.php';
+require_once WPIDPL_PLUGIN_DIR . '/WPIDPL.php';
+$idpl = new WPIDPL();
 
 ?>

@@ -15,7 +15,7 @@ This is the idea platform!
 <form action="<?php echo $submit_url;?>" id="idpl_form">
   <fieldset>
     <legend>Deel jouw App-idee</legend>
-    <input type="hidden" name="action" value="<?php echo $add_idea_func; ?>"/>
+    <input type="hidden" name="action" value="<?php echo $this->add_idea_func; ?>"/>
     <input type="text" name="author_name" placeholder="Naam" required="required"><br/>
     <input type="text" name="author_mail" placeholder="Mailadres" required="required"><br/>
     <select required="required">

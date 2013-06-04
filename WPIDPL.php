@@ -1,21 +1,33 @@
 <?php
 class WPIDPL {
+  /*
+   * The Idea Platform
+   *
+   * Will allow sharing of ideas, replies, contacting authors, rating ideas
+   * 
+   */
+
+  private $add_idea_func;
+  private $idea_table;
+  private $db;
 
   public function __construct() {
-    $add_idea_func  = "wpidpl_add_idea";
+    global $wpdb;
+    $this->db = $wpdb;
+    $this->add_idea_func = "wpidpl_add_idea";
+    $this->idea_table = $wpdb->prefix . "idea_platform_ideas";
+
     add_action( 'activate_' . WPIDPL_PLUGIN_BASENAME, array($this, 'install') );
     add_action( 'admin_menu', array($this, 'admin_menu'), 9 );
     add_action( 'plugins_loaded', array($this, 'add_shortcodes'), 1 );
     add_action( 'wp_ajax_' . $add_idea_func, array($this, 'add_idea') );
-    add_action( 'wp_ajax_nopriv_' . $add_idea_func, array($this, 'add_idea') );
+    add_action( 'wp_ajax_nopriv_' . $this->add_idea_func, array($this, 'add_idea') );
   }
 
   /* Install and default settings */
   public function install() {
-    global $wpdb;
-    $table_name = $wpdb->prefix . "idea_platform_ideas";
-    $wpdb->query(
-      "CREATE TABLE `$table_name` (
+    $this->db->query(
+      "CREATE TABLE `$this->idea_table` (
         `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
         `date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
         `votes` int(11) DEFAULT 0,
@@ -52,15 +64,17 @@ class WPIDPL {
 
   // The idea platform in a page
   public function idea_platform_tag_func() {
-    global $wpdb;
-
-    // TODO: check GET for full page
-    // ELSE
-    // TODO: GET offset / sorting
-    $ideas = $wpdb->get_results("SELECT * FROM wp_9_idea_platform_ideas");
-    $submit_url = admin_url( 'admin-ajax.php' );
-    $add_idea_func = "wpidpl_add_idea"; // i don't understand php private vars
-    include WPIDPL_PLUGIN_DIR . "/list.php";
+    if (isset($_GET['idea_id']) && is_numeric($_GET['idea_id'])) {
+      // Show single idea page
+      $id = $_GET['idea_id'];
+      $ideas = $this->db->get_row("SELECT * FROM $this->idea_table WHERE id = $id");
+    } else {
+      // Show idea listing
+      // TODO: GET offset / sorting
+      $ideas = $this->db->get_results("SELECT * FROM $this->idea_table");
+      $submit_url = admin_url( 'admin-ajax.php' );
+      include WPIDPL_PLUGIN_DIR . "/list.php";
+    }
   }
 
   // Showing the admin page
@@ -68,22 +82,14 @@ class WPIDPL {
     include WPIDPL_PLUGIN_DIR . "/admin/admin.php";
   }
 
-  // Asynchorinous request
+  // Asynchronous request
   public function add_idea() {
     // $response = json_encode( $_POST );
     // TODO: use php array functions (diff, keys etc) to prevent all this repetition
-    if (isset($_POST['author_name']) && 
-        isset($_POST['author_name']) && 
-        isset($_POST['author_mail']) && 
-        isset($_POST['data_location']) && 
-        isset($_POST['data_source']) && 
-        isset($_POST['description']) && 
-        isset($_POST['title')) {
-    global $wpdb;
-    $table_name = $wpdb->prefix . "idea_platform_ideas";
-    // wpdb->insert sanitizes the input (afask)
-    $q = $wpdb->insert( 
-      $table_name, 
+    if (isset($_POST['author_name']) && isset($_POST['author_name']) && isset($_POST['author_mail']) && isset($_POST['data_location']) && isset($_POST['data_source']) && isset($_POST['description']) && isset($_POST['title'])) {
+    // `insert` sanitizes the input (afask)
+    $q = $this->db->insert( 
+      $this->idea_table, 
       array( 
         'author_name' => $_POST['author_name'],
         'author_mail' => $_POST['author_mail'],

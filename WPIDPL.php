@@ -7,21 +7,30 @@ class WPIDPL {
    * 
    */
 
-  private $add_idea_func;
+  private $ajax_names;
   private $idea_table;
   private $db;
+  private $submit_url;
 
   public function __construct() {
     global $wpdb;
     $this->db = $wpdb;
-    $this->add_idea_func = "wpidpl_add_idea";
+    $this->ajax_names = array(
+      'add_idea' => "wpidpl_add_idea",
+      'vote' => "wpidpl_vote",
+      'comment' => "wpidpl_comment"
+    );
     $this->idea_table = $wpdb->prefix . "idea_platform_ideas";
+    $this->comments_table = $wpdb->prefix . "idea_platform_comments";
+    $this->submit_url = admin_url( 'admin-ajax.php' );
 
     add_action( 'activate_' . WPIDPL_PLUGIN_BASENAME, array($this, 'install') );
     add_action( 'admin_menu', array($this, 'admin_menu'), 9 );
     add_action( 'plugins_loaded', array($this, 'add_shortcodes'), 1 );
-    add_action( 'wp_ajax_' .        $this->add_idea_func, array($this, 'add_idea') );
-    add_action( 'wp_ajax_nopriv_' . $this->add_idea_func, array($this, 'add_idea') );
+    foreach ($this->ajax_names as $k => $v) {
+      add_action( 'wp_ajax_' .        $v, array($this, $k) );
+      add_action( 'wp_ajax_nopriv_' . $v, array($this, $k) );
+    }
   }
 
   /* Install and default settings */
@@ -68,12 +77,12 @@ class WPIDPL {
       // Show single idea page
       $id = $_GET['idea_id'];
       $idea = $this->db->get_row("SELECT * FROM $this->idea_table WHERE id = $id");
+      $comments = $this->db->get_results("SELECT * FROM $this->comments_table WHERE idea_id = $id");
       include WPIDPL_PLUGIN_DIR . "/page.php";
     } else {
       // Show idea listing
       // TODO: GET offset / sorting
       $ideas = $this->db->get_results("SELECT * FROM $this->idea_table");
-      $submit_url = admin_url( 'admin-ajax.php' );
       include WPIDPL_PLUGIN_DIR . "/list.php";
     }
   }
@@ -83,7 +92,7 @@ class WPIDPL {
     include WPIDPL_PLUGIN_DIR . "/admin/admin.php";
   }
 
-  // Asynchronous request
+  // Asynchronous adding
   public function add_idea() {
     header( "Content-Type: application/json" );
     $keys = array_flip(array('author_name', 'author_group', 'author_mail', 'data_location', 'data_source', 'description', 'title'));
@@ -94,6 +103,33 @@ class WPIDPL {
       echo json_encode( array('idea_id' => $this->db->insert_id) );
     } else {
       echo json_encode( false );
+    }
+    exit;
+  }
+  // Asynchronous voting
+  public function vote() {
+    // TODO: LIMIT VOTES (ip?)
+    header( "Content-Type: application/json" );
+    if (isset($_POST['id']) &&  is_numeric($_POST['id'])) {
+      $id = $_POST['id'];
+      $this->db->query("UPDATE `$this->idea_table` SET votes = votes + 1 WHERE id = $id ");
+      $idea = $this->db->get_row("SELECT votes FROM $this->idea_table WHERE id = $id");
+      echo json_encode( $idea );
+    }
+    exit;
+  }
+  // Asynchronous commenting
+  public function comment() {
+    // TODO: SPAM CHECKING
+    header( "Content-Type: application/json" );
+    $keys = array_flip(array('author_name', 'author_group', 'author_mail', 'description', 'idea_id'));
+    $insert = array_intersect_key($_POST, $keys);
+    if (!array_diff_key($insert,$keys)) { // check if all keys are in the POST
+      // `insert` sanitizes the input (afask)
+      $q = $this->db->insert($this->comments_table, $insert);
+      echo json_encode( $insert );
+    } else {
+      echo json_encode( array($insert, $keys) );
     }
     exit;
   }

@@ -1,4 +1,3 @@
-This is the idea platform!
 <script type="text/javascript">
   jQuery(document).ready(function() {
     // Submit form my ajax
@@ -13,10 +12,10 @@ This is the idea platform!
     });
   });
 </script>
-<form action="<?php echo $submit_url;?>" id="idpl_form">
+<form action="<?php echo $this->submit_url;?>" id="idpl_form">
   <fieldset>
     <legend>Deel jouw App-idee</legend>
-    <input type="hidden" name="action" value="<?php echo $this->add_idea_func; ?>"/>
+    <input type="hidden" name="action" value="<?php echo $this->ajax_names['add_idea']; ?>"/>
     <input type="text" name="author_name" placeholder="Naam" required="required"><br/>
     <input type="text" name="author_mail" placeholder="Mailadres" required="required"><br/>
     <select required="required" name="author_group">

@@ -20,7 +20,7 @@ class WPIDPL {
     add_action( 'activate_' . WPIDPL_PLUGIN_BASENAME, array($this, 'install') );
     add_action( 'admin_menu', array($this, 'admin_menu'), 9 );
     add_action( 'plugins_loaded', array($this, 'add_shortcodes'), 1 );
-    add_action( 'wp_ajax_' . $add_idea_func, array($this, 'add_idea') );
+    add_action( 'wp_ajax_' .        $this->add_idea_func, array($this, 'add_idea') );
     add_action( 'wp_ajax_nopriv_' . $this->add_idea_func, array($this, 'add_idea') );
   }
 
@@ -67,7 +67,8 @@ class WPIDPL {
     if (isset($_GET['idea_id']) && is_numeric($_GET['idea_id'])) {
       // Show single idea page
       $id = $_GET['idea_id'];
-      $ideas = $this->db->get_row("SELECT * FROM $this->idea_table WHERE id = $id");
+      $idea = $this->db->get_row("SELECT * FROM $this->idea_table WHERE id = $id");
+      include WPIDPL_PLUGIN_DIR . "/page.php";
     } else {
       // Show idea listing
       // TODO: GET offset / sorting
@@ -84,26 +85,17 @@ class WPIDPL {
 
   // Asynchronous request
   public function add_idea() {
-    // $response = json_encode( $_POST );
-    // TODO: use php array functions (diff, keys etc) to prevent all this repetition
-    if (isset($_POST['author_name']) && isset($_POST['author_name']) && isset($_POST['author_mail']) && isset($_POST['data_location']) && isset($_POST['data_source']) && isset($_POST['description']) && isset($_POST['title'])) {
-    // `insert` sanitizes the input (afask)
-    $q = $this->db->insert( 
-      $this->idea_table, 
-      array( 
-        'author_name' => $_POST['author_name'],
-        'author_mail' => $_POST['author_mail'],
-        'data_location' => $_POST['data_location'],
-        'data_source' => $_POST['data_source'],
-        'description' => $_POST['description'],
-        'title' => $_POST['title']
-      )
-    );
-
-    //header( "Content-Type: application/json" );
-    var_dump($q);
-    exit;
+    header( "Content-Type: application/json" );
+    $keys = array_flip(array('author_name', 'author_group', 'author_mail', 'data_location', 'data_source', 'description', 'title'));
+    $insert = array_intersect_key($_POST, $keys);
+    if (!array_diff_key($insert,$keys)) { // check if all keys are in the POST
+      // `insert` sanitizes the input (afask)
+      $q = $this->db->insert($this->idea_table, $insert);
+      echo json_encode( array('idea_id' => $this->db->insert_id) );
+    } else {
+      echo json_encode( false );
     }
+    exit;
   }
 
   // Building resource URLs

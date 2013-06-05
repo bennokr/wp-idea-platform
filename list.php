@@ -3,10 +3,11 @@ This is the idea platform!
   jQuery(document).ready(function() {
     // Submit form my ajax
     jQuery("#idpl_form").on( "submit", function( event ) {
+      jQuery(this).hide();
       event.preventDefault();
-      jQuery.post(jQuery(this).attr("action"), jQuery(this).serializeArray(), function(data) {
-        console.log(data);
-        // TODO: redirect to newly formed idea page
+      jQuery.post(jQuery(this).attr("action"), jQuery(this).serialize(), function(data) {
+        // TODO: confirmation message
+        window.location.href = '?<?php echo $_SERVER['QUERY_STRING'] ?>&idea_id=' + data.idea_id;
       });
       return false;
     });
@@ -18,7 +19,7 @@ This is the idea platform!
     <input type="hidden" name="action" value="<?php echo $this->add_idea_func; ?>"/>
     <input type="text" name="author_name" placeholder="Naam" required="required"><br/>
     <input type="text" name="author_mail" placeholder="Mailadres" required="required"><br/>
-    <select required="required">
+    <select required="required" name="author_group">
       <option disabled selected="yes">Rol</option>
       <option>1</option>
       <option>2</option>
@@ -35,6 +36,6 @@ This is the idea platform!
 </form>
 <ul>
 <?php foreach ($ideas as $idea) { ?>
-  <li><?php echo $idea->title; ?> door <?php echo $idea->author_name; ?></li>
+  <li><a href="?<?php echo $_SERVER['QUERY_STRING'] . "&idea_id=" . $idea->id; ?>"><?php echo $idea->title; ?></a> door <?php echo $idea->author_name; ?></li>
 <?php } ?>
 </ul>

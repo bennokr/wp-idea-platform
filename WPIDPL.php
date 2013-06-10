@@ -18,7 +18,8 @@ class WPIDPL {
     $this->ajax_names = array(
       'add_idea' => "wpidpl_add_idea",
       'vote' => "wpidpl_vote",
-      'comment' => "wpidpl_comment"
+      'comment' => "wpidpl_comment",
+      'contact' => "wpidpl_contact"
     );
     $this->idea_table     = $wpdb->prefix . "idea_platform_ideas";
     $this->comments_table = $wpdb->prefix . "idea_platform_comments";
@@ -87,9 +88,11 @@ class WPIDPL {
   public function idea_platform_tag_func() {
     if (isset($_GET['idea_id']) && is_numeric($_GET['idea_id'])) {
       // Show single idea page
-      $id = $_GET['idea_id'];
-      $idea = $this->db->get_row("SELECT * FROM $this->idea_table WHERE id = $id");
-      $comments = $this->db->get_results("SELECT * FROM $this->comments_table WHERE idea_id = $id");
+      $id = $_GET['idea_id']; // unsanitized
+      $idea = $this->db->get_row(
+        $this->db->prepare("SELECT * FROM $this->idea_table WHERE id = %d", array($id)));
+      $comments = $this->db->get_results(
+        $this->db->prepare("SELECT * FROM $this->comments_table WHERE idea_id = %d", array($id)));
       include WPIDPL_PLUGIN_DIR . "/page.php";
     } else {
       // Show idea listing
@@ -123,9 +126,11 @@ class WPIDPL {
     // TODO: LIMIT VOTES (ip?)
     header( "Content-Type: application/json" );
     if (isset($_POST['id']) &&  is_numeric($_POST['id'])) {
-      $id = $_POST['id'];
-      $this->db->query("UPDATE `$this->idea_table` SET votes = votes + 1 WHERE id = $id ");
-      $idea = $this->db->get_row("SELECT votes FROM $this->idea_table WHERE id = $id");
+      $id = $_POST['id']; // unsanitized, do not use bare!
+      $this->db->query(
+        $this->db->prepare("UPDATE `$this->idea_table` SET votes = votes + 1 WHERE id = %d", array($id)));
+      $idea = $this->db->get_row(
+        $this->db->prepare("SELECT votes FROM $this->idea_table WHERE id =  %d", array($id)));
       echo json_encode( $idea );
     }
     exit;
@@ -141,7 +146,38 @@ class WPIDPL {
       $q = $this->db->insert($this->comments_table, $insert);
       echo json_encode( $insert );
     } else {
-      echo json_encode( array($insert, $keys) );
+      echo json_encode( false );
+    }
+    exit;
+  }
+  // Asynchronous contact mail form
+  public function contact() {
+    // TODO: SPAM CHECKING
+    header( "Content-Type: application/json" );
+    $keys = array_flip(array('idea_id', 'mail', 'telephone', 'message'));
+    $mail = array_intersect_key($_POST, $keys);
+    if (!array_diff_key($mail,$keys)) { // check if all keys are in the POST
+      // Send mail
+      $id = $mail['idea_id']; // unsanitized, do not use bare!
+      $idea = $this->db->get_row($this->db->prepare("SELECT author_name, author_mail, title FROM $this->idea_table WHERE id =  %d", array($id)));
+
+      $tel = sanitize_text_field($mail['telephone']);
+      $msg = nl2br(htmlspecialchars($mail['message']));
+      $address = sanitize_email($mail['mail']);
+      $title = $idea->title;
+      //TODO: i18n
+      $rep = "Reactie op";
+      $content = <<<EOT
+<b>$rep $title</b><br />
+<p>$msg</p>
+<b>Telefoon:</b> $tel<br />
+<b>E-mail:</b> $address<br />
+EOT;
+
+      echo json_encode( $this->send_mail($address, $idea->author_name.' <'.$idea->author_mail.'>', $rep . ' ' . $title, $content));
+
+    } else {
+      echo json_encode( false );
     }
     exit;
   }
@@ -153,5 +189,28 @@ class WPIDPL {
       $url .= '/' . ltrim( $path, '/' );
     return $url;
   }
+
+  // Wordpress mail sending
+  private function send_mail($to, $reply, $title, $msg) {
+    add_filter( 'wp_mail_content_type', 'set_html_content_type' );
+    $sent = wp_mail(
+      $to, 
+      $title,
+      $msg,
+      array('Reply-To: '. $reply));
+    $sent = $sent && wp_mail(
+      get_option('admin_email'),
+      $title,
+      $msg,
+      array('Reply-To: '. sanitize_email($mail['mail'])));
+    remove_filter( 'wp_mail_content_type', 'set_html_content_type' ); // reset content-type to to avoid conflicts -- http://core.trac.wordpress.org/ticket/23578
+    return $sent;
+  }
+}
+
+// Wordpress HTML mail incompetence
+function set_html_content_type()
+{
+  return 'text/html';
 }
 ?>

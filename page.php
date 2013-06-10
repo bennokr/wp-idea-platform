@@ -18,6 +18,15 @@
       });
       return false;
     });
+
+    jQuery("#idpl_contact").on( "submit", function( event ) {
+      // jQuery(this).hide();
+      event.preventDefault();
+      jQuery.post(jQuery(this).attr("action"), jQuery(this).serialize(), function(data) {
+        console.log(data);
+      });
+      return false;
+    });
   });
 </script>
 <div><a href="?page_id=<?php echo the_ID(); ?>">Terug naar overzicht</a></div>
@@ -35,6 +44,17 @@
   <li>Data open: <?php echo $idea->data_open; ?></li>
   <li>Data locatie: <?php echo $idea->data_location; ?></li>
 </ul>
+<form action="<?php echo $this->submit_url;?>" id="idpl_contact">
+  <fieldset>
+    <legend>Maak een afspraak met de bedenker van dit idee!</legend>
+    <input type="hidden" name="action" value="<?php echo $this->ajax_names['contact']; ?>"/>
+    <input type="hidden" name="idea_id" value="<?php echo $idea->id; ?>"/>
+    <input type="text" name="telephone" placeholder="Tel." required="required"><br/>
+    <input type="text" name="mail" placeholder="Mailadres" required="required"><br/>
+    <textarea name="message" value="" placeholder="Bericht"></textarea><br />
+    <input type="submit" id="idpl_form_btn" value="Stuur mail"/>
+  </fieldset>
+</form>
 
 <form action="<?php echo $this->submit_url;?>" id="idpl_comment">
   <fieldset>

@@ -20,7 +20,7 @@ class WPIDPL {
       'vote' => "wpidpl_vote",
       'comment' => "wpidpl_comment"
     );
-    $this->idea_table = $wpdb->prefix . "idea_platform_ideas";
+    $this->idea_table     = $wpdb->prefix . "idea_platform_ideas";
     $this->comments_table = $wpdb->prefix . "idea_platform_comments";
     $this->submit_url = admin_url( 'admin-ajax.php' );
 
@@ -38,7 +38,7 @@ class WPIDPL {
     $this->db->query(
       "CREATE TABLE `$this->idea_table` (
         `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-        `date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+        `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
         `votes` int(11) DEFAULT 0,
         `status` int(11) DEFAULT 0,
         `author_name` varchar(128) DEFAULT NULL,
@@ -50,6 +50,18 @@ class WPIDPL {
         `data_location` varchar(128) DEFAULT NULL,
         `data_open` tinyint(1) NOT NULL DEFAULT '1',
         `files` int(11) DEFAULT NULL,
+        PRIMARY KEY (`id`)
+      )");
+
+    $this->db->query(
+      "CREATE TABLE `$this->comments_table` (
+        `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+        `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        `author_name` varchar(128) DEFAULT NULL,
+        `author_group` int(11) DEFAULT NULL,
+        `author_mail` varchar(128) DEFAULT NULL,
+        `description` text,
+        `idea_id` int(11) DEFAULT NULL,
         PRIMARY KEY (`id`)
       )");
   }

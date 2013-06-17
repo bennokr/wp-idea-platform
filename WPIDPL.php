@@ -25,13 +25,24 @@ class WPIDPL {
     $this->comments_table = $wpdb->prefix . "idea_platform_comments";
     $this->submit_url = admin_url( 'admin-ajax.php' );
 
+    // Hook up public functions
     add_action( 'activate_' . WPIDPL_PLUGIN_BASENAME, array($this, 'install') );
     add_action( 'admin_menu', array($this, 'admin_menu'), 9 );
     add_action( 'plugins_loaded', array($this, 'add_shortcodes'), 1 );
+    add_action( 'admin_init', array($this, 'register_settings'));
+    add_action( 'wp_enqueue_scripts', array($this, 'add_stylesheet' ));
+
     foreach ($this->ajax_names as $k => $v) {
       add_action( 'wp_ajax_' .        $v, array($this, $k) );
       add_action( 'wp_ajax_nopriv_' . $v, array($this, $k) );
     }
+
+    $this->groups = false;
+    if ("" != get_option('idpl_groups')) {
+      // The groups are a comma-seperated list
+      $this->groups = array_map('trim',explode(",", get_option('idpl_groups')));
+    }
+
   }
 
   /* Install and default settings */
@@ -65,6 +76,8 @@ class WPIDPL {
         `idea_id` int(11) DEFAULT NULL,
         PRIMARY KEY (`id`)
       )");
+
+    // http://codex.wordpress.org/Settings_API
   }
 
   // Add the options to the wordpress admin menu
@@ -84,6 +97,22 @@ class WPIDPL {
     add_shortcode( 'idea-platform', array($this,'idea_platform_tag_func' ));
   }
 
+  // Register settings
+  public function register_settings() {
+    $vs = array('idpl_votes-name','idpl_votes-namepl','idpl_groups');
+    foreach ($vs as $v) {
+      register_setting('idpl_settings', $v);
+    }
+  }
+   /**
+   * Enqueue plugin style-file
+   */
+  public function add_stylesheet() {
+      // Respects SSL, Style.css is relative to the current file
+      wp_register_style( 'idpl-style', plugins_url('style.css', __FILE__) );
+      wp_enqueue_style( 'idpl-style' );
+  }
+
   // The idea platform in a page
   public function idea_platform_tag_func() {
     if (isset($_GET['idea_id']) && is_numeric($_GET['idea_id'])) {
@@ -93,17 +122,30 @@ class WPIDPL {
         $this->db->prepare("SELECT * FROM $this->idea_table WHERE id = %d", array($id)));
       $comments = $this->db->get_results(
         $this->db->prepare("SELECT * FROM $this->comments_table WHERE idea_id = %d", array($id)));
+
+
       include WPIDPL_PLUGIN_DIR . "/page.php";
     } else {
       // Show idea listing
       // TODO: GET offset / sorting
-      $ideas = $this->db->get_results("SELECT * FROM $this->idea_table");
+      $where = (isset($_GET['filter']) && is_numeric($_GET['filter']))? " WHERE status = " . $_GET['filter'] : "";
+      $sort = " ORDER BY " . ((isset($_GET['sort']) && $_GET['sort'] == "votes")? "votes DESC" : "date DESC");
+      $ideas = $this->db->get_results("SELECT * FROM $this->idea_table".$where.$sort);
       include WPIDPL_PLUGIN_DIR . "/list.php";
     }
   }
 
   // Showing the admin page
   public function admin_management_page() {
+    if (isset($_POST['status']) && is_array($_POST['status']) && isset($_POST['idea_id']) && is_array($_POST['idea_id'])) {
+      foreach($_POST['status'] as $n=>$stat) {
+        $id = $_POST['idea_id'][$n];
+        $this->db->query(
+          $this->db->prepare("UPDATE `$this->idea_table` SET status = %d WHERE id = %d", array($stat, $id)));
+      }
+    }
+
+    $ideas = $this->db->get_results("SELECT * FROM $this->idea_table");
     include WPIDPL_PLUGIN_DIR . "/admin/admin.php";
   }
 

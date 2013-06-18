@@ -20,8 +20,8 @@
     jQuery('#idpl_form').hide();
   });
 </script>
-<div style="text-align:center; width:100%; margin-top:2em;">
-  <a href="javascript:jQuery('#idpl_form').show();" class="idpl_button">Klik hier om jouw app-idee te delen!</a>
+<div style="text-align:center; width:100%; margin-top:1em;" id="idpl_formbtn">
+  <a href="javascript:jQuery('#idpl_form').slideDown(); jQuery('#idpl_formbtn').slideUp();" class="idpl_button">Klik hier om jouw app-idee te delen!</a>
 </div>
 <form action="<?php echo $this->submit_url;?>" id="idpl_form">
   <fieldset>
@@ -35,34 +35,39 @@
       <?php } ?>
     </select><br />
     <input type="text" name="title" placeholder="Titel" required="required"><br />
-    <textarea name="description" value="" placeholder="Beschrijving"></textarea><br />
+    <textarea name="description" value="" placeholder="Beschrijving" required="required"></textarea><br />
     <input type="text" name="data_source" placeholder="Welke data kan gebruikt worden?"><br />
     <label>Is de data open?</label><input type="checkbox" name="data_open"><br />
     <input type="text" name="data_location" placeholder="Waar is de data te vinden?"><br />
     <div>
       <input type="submit" id="idpl_form_btn" value="Publiceer" style="float:right;"/>
-      <a href="javascript:jQuery('#idpl_form').hide();">Annuleren</a>
+      <a href="javascript:jQuery('#idpl_form').slideUp(); jQuery('#idpl_formbtn').slideDown();">Annuleren</a>
     </div>
   </fieldset>
 </form>
 <br />
 <form class="listdrop">
 <select id="sorter" class="listdrop">
-  <option disabled selected="yes">Sorteer op...</option>
-  <option value="date">Datum</option>
-  <option value="votes"><?php echo get_option('idpl_votes-namepl'); ?></option>
+  <option disabled<?php echo (!isset($_GET['sort']))? ' selected="yes"' : ''; ?>>Sorteer op...</option>
+  <option value="date"<?php echo ($_GET['sort']=='date')? ' selected="yes"' : ''; ?>>Datum</option>
+  <option value="votes"<?php echo ($_GET['sort']=='votes')? ' selected="yes"' : ''; ?>><?php echo get_option('idpl_votes-namepl'); ?></option>
 </select>
 <select id="filter" class="listdrop">
-  <option disabled selected="yes">Filter op...</option>
+  <option disabled<?php echo (!isset($_GET['filter']))? ' selected="yes"' : ''; ?>>Filter op...</option>
   <option value="">Niets</option>
-  <option value="0">Openstaand</option>
-  <option value="1">Gesloten</option>
-  <option value="2">Gerealiseerd</option>
+  <option value="0"<?php echo ($_GET['filter']==0)? ' selected="yes"' : ''; ?>>Openstaand</option>
+  <option value="1"<?php echo ($_GET['filter']==1)? ' selected="yes"' : ''; ?>>Gesloten</option>
+  <option value="2"<?php echo ($_GET['filter']==2)? ' selected="yes"' : ''; ?>>Gerealiseerd</option>
 </select>
 </form>
 <h3 style="clear:none;">Nieuwste App-ideeën</h3>
-<ul>
+<ul id="idpl_idea_list">
 <?php foreach ($ideas as $idea) { ?>
-  <li><a href="?<?php echo $_SERVER['QUERY_STRING'] . "&idea_id=" . $idea->id; ?>"><?php echo $idea->title; ?></a> door <?php echo $idea->author_name; ?></li>
+  <li>
+    <h3 style="padding-bottom: 0px; margin-bottom: 0px;"><a href="?<?php echo $_SERVER['QUERY_STRING'] . "&idea_id=" . $idea->id; ?>"><?php echo $idea->title; ?></a></h3>
+    <i>door <?php echo $idea->author_name; ?>, een <?php echo strtolower($this->groups[$idea->author_group]); ?>, ingezonden op <?php echo strftime("%e %B %Y", strtotime($idea->date)); ?></i><br />
+    <div style="margin: 5px 0 5px 0"><?php echo substr($idea->description, 0, 140); ?>...</div>
+    <i><?php echo $idea->votes; ?> <?php echo strtolower(get_option('idpl_votes-namepl')); ?>, <?php echo strtolower($this->getStatusString($idea->status)); ?></i><br />
+  </li>
 <?php } ?>
 </ul>

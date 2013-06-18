@@ -25,6 +25,9 @@ class WPIDPL {
     $this->comments_table = $wpdb->prefix . "idea_platform_comments";
     $this->submit_url = admin_url( 'admin-ajax.php' );
 
+    // Set regional settings for date
+    setlocale(LC_TIME, "NL_nl"); 
+
     // Hook up public functions
     add_action( 'activate_' . WPIDPL_PLUGIN_BASENAME, array($this, 'install') );
     add_action( 'admin_menu', array($this, 'admin_menu'), 9 );
@@ -77,7 +80,6 @@ class WPIDPL {
         PRIMARY KEY (`id`)
       )");
 
-    // http://codex.wordpress.org/Settings_API
   }
 
   // Add the options to the wordpress admin menu
@@ -127,7 +129,7 @@ class WPIDPL {
       include WPIDPL_PLUGIN_DIR . "/page.php";
     } else {
       // Show idea listing
-      // TODO: GET offset / sorting
+      // TODO: pagination
       $where = (isset($_GET['filter']) && is_numeric($_GET['filter']))? " WHERE status = " . $_GET['filter'] : "";
       $sort = " ORDER BY " . ((isset($_GET['sort']) && $_GET['sort'] == "votes")? "votes DESC" : "date DESC");
       $ideas = $this->db->get_results("SELECT * FROM $this->idea_table".$where.$sort);
@@ -137,11 +139,24 @@ class WPIDPL {
 
   // Showing the admin page
   public function admin_management_page() {
-    if (isset($_POST['status']) && is_array($_POST['status']) && isset($_POST['idea_id']) && is_array($_POST['idea_id'])) {
-      foreach($_POST['status'] as $n=>$stat) {
-        $id = $_POST['idea_id'][$n];
-        $this->db->query(
-          $this->db->prepare("UPDATE `$this->idea_table` SET status = %d WHERE id = %d", array($stat, $id)));
+    // TODO: check admin credentials, etc!
+    if (isset($_POST['idea_id']) && is_array($_POST['idea_id'])) {
+      // Changing status
+      if (isset($_POST['status']) && is_array($_POST['status'])) {
+        foreach($_POST['status'] as $id=>$stat) {
+          $this->db->query(
+            $this->db->prepare("UPDATE `$this->idea_table` SET status = %d WHERE id = %d", array($stat, $id)));
+        }
+      }
+      // Deleting ideas
+      if (isset($_POST['delete']) && is_array($_POST['delete'])) {
+        foreach($_POST['delete'] as $id=>$del) {
+          if ($del) {
+            // echo "delete $id<br />";
+            $this->db->query(
+              $this->db->prepare("DELETE FROM `$this->idea_table` WHERE id = %d", $id));
+          }
+        }
       }
     }
 
@@ -230,6 +245,15 @@ EOT;
     if ( ! empty( $path ) && is_string( $path ) && false === strpos( $path, '..' ) )
       $url .= '/' . ltrim( $path, '/' );
     return $url;
+  }
+
+  private function getStatusString($num) {
+    switch ($num) {
+      case 0: { return 'Openstaand'; break; };
+      case 1: { return 'Gesloten'; break;};
+      case 2: { return 'Gerealiseerd'; break;};
+    };
+    return "";
   }
 
   // Wordpress mail sending

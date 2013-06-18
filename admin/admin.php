@@ -21,18 +21,22 @@
         <td><b>Naam</b></td>
         <td><b>Auteur</b></td>
         <td><b>Status</b></td>
+        <td><b style="color:red">Verwijderen</b></td>
       </tr>
       <?php foreach ($ideas as $idea) { ?>
         <tr>
-          <input type="hidden" name="idea_id[]" value="<?php echo $idea->id; ?>" />
+          <input type="hidden" name="idea_id[<?php echo $idea->id; ?>]" value="<?php echo $idea->id; ?>" />
           <td><a href="?<?php echo $_SERVER['QUERY_STRING'] . "&idea_id=" . $idea->id; ?>"><?php echo $idea->title; ?></a></td>
           <td><?php echo $idea->author_name; ?></td>
           <td>
-            <select name="status[]">
+            <select name="status[<?php echo $idea->id; ?>]">
               <option value="0"<?php echo (0==$idea->status)? ' selected="yes"' : ''; ?>>Openstaand</option>
               <option value="1"<?php echo (1==$idea->status)? ' selected="yes"' : ''; ?>>Gesloten</option>
               <option value="2"<?php echo (2==$idea->status)? ' selected="yes"' : ''; ?>>Gerealiseerd</option>
             </select>
+          </td>
+          <td>
+            <input type="checkbox" name="delete[<?php echo $idea->id; ?>]"/>
           </td>
         </tr>
       <?php } ?>

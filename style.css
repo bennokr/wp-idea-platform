@@ -1,3 +1,7 @@
+#idpl_vote {
+  display:none;
+}
+
 a.idpl_button {
   display:block;
   width:70%;
@@ -32,7 +36,7 @@ a.idpl_button {
   float:right;
   width:25%;
   margin:4%;
-  vertical-align:center;
+  vertical-align:central;
 }
 #idpl_contact p * {
   padding:4px;
@@ -41,6 +45,14 @@ a.idpl_button {
 #idpl_comments {
   list-style-type:none;
 }
-#idpl_comment input {
-  width:50%;
+#idpl_comment {
+  background-color:#fef9e9;
+  width:60%;
+  padding:5%;
+}
+#idpl_comment input, #idpl_comment textarea {
+  width:90%;
+}
+#idpl_idea_list {
+  list-style-type: none;
 }

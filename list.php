@@ -50,13 +50,13 @@
   <select id="sorter" class="listdrop">
     <option disabled<?php echo (!isset($_GET['sort']))? ' selected="yes"' : ''; ?>>Sorteer op...</option>
     <option value="date"<?php echo ($_GET['sort']=='date')? ' selected="yes"' : ''; ?>>Datum</option>
-    <option value="votes"<?php echo ($_GET['sort']=='votes')? ' selected="yes"' : ''; ?>><?php echo get_option('idpl_votes-namepl'); ?></option>
+    <option value="votes"<?php echo ($_GET['sort']=='votes')? ' selected="yes"' : ''; ?>><?php echo ucfirst(get_option('idpl_votes-namepl')); ?></option>
   </select>
   <select id="filter" class="listdrop">
     <option disabled<?php echo (!isset($_GET['filter']))? ' selected="yes"' : ''; ?>>Filter op...</option>
     <option value="">Niets</option>
     <?php foreach ($this->statusses as $key => $value) { ?>
-      <option value="<?php echo $key;?>"<?php echo (isset($_GET['filter']) && $_GET['filter']==$key)? ' selected="yes"' : ''; ?>><?php echo $value;?></option>
+      <option value="<?php echo $key;?>"<?php echo (isset($_GET['filter']) && $_GET['filter']==$key)? ' selected="yes"' : ''; ?>><?php echo ucfirst($value);?></option>
     <?php } ?>
   </select>
 </form>

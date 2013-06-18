@@ -46,7 +46,7 @@
 <div class="back"><a href="?page_id=<?php echo the_ID(); ?>">&lt; Terug naar overzicht</a></div>
 
 <div style="float:left; padding:2em;  text-align:center;">
-  <span id="idpl_votes"><?php echo $idea->votes; ?></span> <?php echo get_option('idpl_votes-namepl'); ?><br />
+  <span id="idpl_votes"><?php echo $idea->votes; ?></span> <?php echo strtolower(get_option('idpl_votes-namepl')); ?><br />
   <form action="<?php echo $this->submit_url;?>" id="idpl_vote">
     <input type="hidden" name="action" value="<?php echo $this->ajax_names['vote']; ?>"/>
     <input type="hidden" name="id" value="<?php echo $idea->id; ?>"/>
@@ -92,7 +92,7 @@
 <ul id="idpl_comments">
 <?php foreach ($comments as $comment) { ?>
   <li>
-    <i style="margin-left:-10px;">Op <?php echo $comment->date; ?> schreef <?php echo $comment->author_name; ?> (<?php echo $this->groups[$comment->author_group]; ?>):</i><br />
+    <i style="margin-left:-10px;">Op <?php echo $comment->date; ?> schreef <?php echo $comment->author_name; ?> (<?php echo strtolower($this->groups[$comment->author_group]); ?>):</i><br />
     <?php echo nl2br(htmlspecialchars($comment->description)); ?>
   </li>
 <?php } ?>

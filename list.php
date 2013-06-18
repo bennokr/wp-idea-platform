@@ -47,18 +47,18 @@
 </form>
 <br />
 <form class="listdrop">
-<select id="sorter" class="listdrop">
-  <option disabled<?php echo (!isset($_GET['sort']))? ' selected="yes"' : ''; ?>>Sorteer op...</option>
-  <option value="date"<?php echo ($_GET['sort']=='date')? ' selected="yes"' : ''; ?>>Datum</option>
-  <option value="votes"<?php echo ($_GET['sort']=='votes')? ' selected="yes"' : ''; ?>><?php echo get_option('idpl_votes-namepl'); ?></option>
-</select>
-<select id="filter" class="listdrop">
-  <option disabled<?php echo (!isset($_GET['filter']))? ' selected="yes"' : ''; ?>>Filter op...</option>
-  <option value="">Niets</option>
-  <option value="0"<?php echo ($_GET['filter']==0)? ' selected="yes"' : ''; ?>>Openstaand</option>
-  <option value="1"<?php echo ($_GET['filter']==1)? ' selected="yes"' : ''; ?>>Gesloten</option>
-  <option value="2"<?php echo ($_GET['filter']==2)? ' selected="yes"' : ''; ?>>Gerealiseerd</option>
-</select>
+  <select id="sorter" class="listdrop">
+    <option disabled<?php echo (!isset($_GET['sort']))? ' selected="yes"' : ''; ?>>Sorteer op...</option>
+    <option value="date"<?php echo ($_GET['sort']=='date')? ' selected="yes"' : ''; ?>>Datum</option>
+    <option value="votes"<?php echo ($_GET['sort']=='votes')? ' selected="yes"' : ''; ?>><?php echo get_option('idpl_votes-namepl'); ?></option>
+  </select>
+  <select id="filter" class="listdrop">
+    <option disabled<?php echo (!isset($_GET['filter']))? ' selected="yes"' : ''; ?>>Filter op...</option>
+    <option value="">Niets</option>
+    <?php foreach ($this->statusses as $key => $value) { ?>
+      <option value="<?php echo $key;?>"<?php echo (isset($_GET['filter']) && $_GET['filter']==$key)? ' selected="yes"' : ''; ?>><?php echo $value;?></option>
+    <?php } ?>
+  </select>
 </form>
 <h3 style="clear:none;">Nieuwste App-ideeën</h3>
 <ul id="idpl_idea_list">
@@ -67,7 +67,7 @@
     <h3 style="padding-bottom: 0px; margin-bottom: 0px;"><a href="?<?php echo $_SERVER['QUERY_STRING'] . "&idea_id=" . $idea->id; ?>"><?php echo $idea->title; ?></a></h3>
     <i>door <?php echo $idea->author_name; ?>, een <?php echo strtolower($this->groups[$idea->author_group]); ?>, ingezonden op <?php echo strftime("%e %B %Y", strtotime($idea->date)); ?></i><br />
     <div style="margin: 5px 0 5px 0"><?php echo substr($idea->description, 0, 140); ?>...</div>
-    <i><?php echo $idea->votes; ?> <?php echo strtolower(get_option('idpl_votes-namepl')); ?>, <?php echo strtolower($this->getStatusString($idea->status)); ?></i><br />
+    <i><?php echo $idea->votes; ?> <?php echo strtolower(get_option('idpl_votes-namepl')); ?>, <?php echo strtolower($this->statusses[$idea->status]); ?></i><br />
   </li>
 <?php } ?>
 </ul>

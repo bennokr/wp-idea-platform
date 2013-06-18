@@ -25,9 +25,6 @@ class WPIDPL {
     $this->comments_table = $wpdb->prefix . "idea_platform_comments";
     $this->submit_url = admin_url( 'admin-ajax.php' );
 
-    // Set regional settings for date
-    setlocale(LC_TIME, "NL_nl"); 
-
     // Hook up public functions
     add_action( 'activate_' . WPIDPL_PLUGIN_BASENAME, array($this, 'install') );
     add_action( 'admin_menu', array($this, 'admin_menu'), 9 );
@@ -44,6 +41,11 @@ class WPIDPL {
     if ("" != get_option('idpl_groups')) {
       // The groups are a comma-seperated list
       $this->groups = array_map('trim',explode(",", get_option('idpl_groups')));
+    }
+    $this->statusses = false;
+    if ("" != get_option('idpl_statusses')) {
+      // The statusses are a comma-seperated list
+      $this->statusses = array_map('trim',explode(",", get_option('idpl_statusses')));
     }
 
   }
@@ -63,7 +65,7 @@ class WPIDPL {
         `description` text,
         `data_source` varchar(128) DEFAULT NULL,
         `data_location` varchar(128) DEFAULT NULL,
-        `data_open` tinyint(1) NOT NULL DEFAULT '1',
+        `data_open` tinyint(1) NOT NULL DEFAULT '0',
         `files` int(11) DEFAULT NULL,
         PRIMARY KEY (`id`)
       )");
@@ -101,7 +103,7 @@ class WPIDPL {
 
   // Register settings
   public function register_settings() {
-    $vs = array('idpl_votes-name','idpl_votes-namepl','idpl_groups');
+    $vs = array('idpl_votes-name','idpl_votes-namepl','idpl_groups', 'idpl_statusses');
     foreach ($vs as $v) {
       register_setting('idpl_settings', $v);
     }
@@ -117,6 +119,9 @@ class WPIDPL {
 
   // The idea platform in a page
   public function idea_platform_tag_func() {
+    // Set regional settings for date
+    setlocale(LC_TIME, "NL_nl"); 
+
     if (isset($_GET['idea_id']) && is_numeric($_GET['idea_id'])) {
       // Show single idea page
       $id = $_GET['idea_id']; // unsanitized
@@ -142,25 +147,38 @@ class WPIDPL {
     // TODO: check admin credentials, etc!
     if (isset($_POST['idea_id']) && is_array($_POST['idea_id'])) {
       // Changing status
-      if (isset($_POST['status']) && is_array($_POST['status'])) {
-        foreach($_POST['status'] as $id=>$stat) {
+      if (isset($_POST['idea_status']) && is_array($_POST['idea_status'])) {
+        foreach($_POST['idea_status'] as $id=>$stat) {
           $this->db->query(
             $this->db->prepare("UPDATE `$this->idea_table` SET status = %d WHERE id = %d", array($stat, $id)));
         }
       }
       // Deleting ideas
-      if (isset($_POST['delete']) && is_array($_POST['delete'])) {
-        foreach($_POST['delete'] as $id=>$del) {
+      if (isset($_POST['idea_delete']) && is_array($_POST['idea_delete'])) {
+        foreach($_POST['idea_delete'] as $id=>$del) {
           if ($del) {
-            // echo "delete $id<br />";
             $this->db->query(
               $this->db->prepare("DELETE FROM `$this->idea_table` WHERE id = %d", $id));
+            $this->db->query(
+              $this->db->prepare("DELETE FROM `$this->comments_table` WHERE idea_id = %d", $id));
+          }
+        }
+      }
+    }
+    if (isset($_POST['comment_id']) && is_array($_POST['comment_id'])) {
+      // Deleting comments
+      if (isset($_POST['comment_delete']) && is_array($_POST['comment_delete'])) {
+        foreach($_POST['comment_delete'] as $id=>$del) {
+          if ($del) {
+            $this->db->query(
+              $this->db->prepare("DELETE FROM `$this->comments_table` WHERE id = %d", $id));
           }
         }
       }
     }
 
     $ideas = $this->db->get_results("SELECT * FROM $this->idea_table");
+    $comments = $this->db->get_results("SELECT * FROM $this->comments_table");
     include WPIDPL_PLUGIN_DIR . "/admin/admin.php";
   }
 

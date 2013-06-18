@@ -52,7 +52,7 @@
     <input type="hidden" name="id" value="<?php echo $idea->id; ?>"/>
     <input type="submit" value="<?php echo get_option('idpl_votes-name'); ?>">
   </form>
-  <b><?php echo $this->getStatusString($idea->status); ?></b>
+  <b><?php echo ucfirst($this->statusses[$idea->status]); ?></b>
 </div>
 
 <div>

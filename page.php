@@ -58,7 +58,7 @@
 
 <div>
   <p style="font-size: 11px;font-style: normal;letter-spacing: 0.05em;text-transform: uppercase;">
-    <?php echo strftime("%e %B %Y", strtotime($idea->date)); ?>
+    <?php echo date_i18n(get_option('date_format'), strtotime($idea->date)); ?>
     <a href="?page_id=<?php echo the_ID(); ?>" title="Terug naar overzicht" style="float:right; color:#666;">Terug</a>
   </p>
   <h1 style="padding:0;margin:0;clear:none;"><?php echo $idea->title; ?></h1>
@@ -100,7 +100,7 @@
 <ul id="idpl_comments">
 <?php foreach ($comments as $comment) { ?>
   <li>
-    <i style="margin-left:-10px;">Op <?php echo $comment->date; ?> schreef <?php echo $comment->author_name; ?> (<?php echo strtolower($this->groups[$comment->author_group]); ?>):</i><br />
+    <i style="margin-left:-10px;">Op <?php echo date_i18n(get_option('date_format'), strtotime($comment->date)); ?> schreef <?php echo $comment->author_name; ?> (<?php echo strtolower($this->groups[$comment->author_group]); ?>):</i><br />
     <?php echo nl2br(htmlspecialchars($comment->description)); ?>
   </li>
 <?php } ?>

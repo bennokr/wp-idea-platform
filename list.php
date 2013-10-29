@@ -68,7 +68,7 @@
 <?php foreach ($ideas as $idea) { ?>
   <li>
     <h3 style="padding-bottom: 0px; margin-bottom: 0px;"><a href="?<?php echo $_SERVER['QUERY_STRING'] . "&idea_id=" . $idea->id; ?>"><?php echo $idea->title; ?></a></h3>
-    <i>door <?php echo $idea->author_name; ?>, een <?php echo strtolower($this->groups[$idea->author_group]); ?>, ingezonden op <?php echo strftime("%e %B %Y", strtotime($idea->date)); ?></i><br />
+    <i>door <?php echo $idea->author_name; ?>, een <?php echo strtolower($this->groups[$idea->author_group]); ?>, ingezonden op <?php echo date_i18n(get_option('date_format'), strtotime($idea->date)); ?></i><br />
     <div style="margin: 5px 0 5px 0"><?php echo substr($idea->description, 0, 140); ?>...</div>
     <i><?php echo $idea->votes; ?> <?php echo strtolower(get_option('idpl_votes-namepl')); ?>, <?php echo strtolower($this->statusses[$idea->status]); ?></i><br />
   </li>

@@ -1,12 +1,17 @@
 #idpl_vote {
   display:none;
 }
+#idpl_votes {
+  font-size: 19px;
+  color: #666;
+font-family: 'Avenir','Lucida Grande', Verdana, Arial, Sans-Serif;
+text-rendering: optimizeLegibility;
+}
 
 a.idpl_button {
   display:block;
   width:70%;
   padding:5%;
-  background:#73c4b2;
   color: white !important;
   margin:0px auto;
   font-size:1.3em;
@@ -14,7 +19,7 @@ a.idpl_button {
 #idpl_form {
   width:70%;
   margin:0px auto;
-  background-color:#fef9e9;
+  background-color:#fcebc5;
   padding:5%;
 }
 #idpl_form input[type=text] {
@@ -22,6 +27,11 @@ a.idpl_button {
 }
 #idpl_form textarea {
   width:100%; height:5em;
+}
+
+#idpl_contactbtn a:hover {
+  text-decoration:none;
+  border-bottom: 0px;
 }
 
 .listdrop {
@@ -46,12 +56,15 @@ a.idpl_button {
   list-style-type:none;
 }
 #idpl_comment {
-  background-color:#fef9e9;
+  background-color:#fcebc5;
   width:60%;
   padding:5%;
 }
-#idpl_comment input, #idpl_comment textarea {
-  width:90%;
+#idpl_comment input[type=text], #idpl_comment textarea {
+  width:100%;
+}
+#idpl_comment input[type=submit] {
+  float:right;
 }
 #idpl_idea_list {
   list-style-type: none;

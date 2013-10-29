@@ -11,9 +11,11 @@
       return false;
     });
     jQuery('#sorter').change(function() {
+      jQuery('#sorterfilterform').html('<img src="<?php echo $this->plugin_url("images/ajax-loader.gif"); ?>" />');
       window.location.href = '?<?php echo $_SERVER['QUERY_STRING'] ?>&sort=' + this.value;
     });
     jQuery('#filter').change(function() {
+      jQuery('#sorterfilterform').html('<img src="<?php echo $this->plugin_url("images/ajax-loader.gif"); ?>" />');
       window.location.href = '?<?php echo $_SERVER['QUERY_STRING'] ?>&filter=' + this.value;
     });
 
@@ -21,7 +23,9 @@
   });
 </script>
 <div style="text-align:center; width:100%; margin-top:1em;" id="idpl_formbtn">
-  <a href="javascript:jQuery('#idpl_form').slideDown(); jQuery('#idpl_formbtn').slideUp();" class="idpl_button">Klik hier om jouw app-idee te delen!</a>
+  <a href="javascript:jQuery('#idpl_form').slideDown(); jQuery('#idpl_formbtn').slideUp();" class="idpl_button">
+    <img src="<?php echo $this->plugin_url("images/deel.png"); ?>" style="width:100%;"/>
+  </a>
 </div>
 <form action="<?php echo $this->submit_url;?>" id="idpl_form">
   <fieldset>
@@ -46,21 +50,20 @@
   </fieldset>
 </form>
 <br />
-<form class="listdrop">
+<form class="listdrop" id="sorterfilterform">
   <select id="sorter" class="listdrop">
-    <option disabled<?php echo (!isset($_GET['sort']))? ' selected="yes"' : ''; ?>>Sorteer op...</option>
+    <option value=""<?php echo (!isset($_GET['sort']))? ' selected="yes"' : ''; ?>>Sorteer op...</option>
     <option value="date"<?php echo ($_GET['sort']=='date')? ' selected="yes"' : ''; ?>>Datum</option>
     <option value="votes"<?php echo ($_GET['sort']=='votes')? ' selected="yes"' : ''; ?>><?php echo ucfirst(get_option('idpl_votes-namepl')); ?></option>
   </select>
   <select id="filter" class="listdrop">
-    <option disabled<?php echo (!isset($_GET['filter']))? ' selected="yes"' : ''; ?>>Filter op...</option>
-    <option value="">Niets</option>
+    <option value=""<?php echo (!isset($_GET['filter']))? ' selected="yes"' : ''; ?>>Filter op...</option>
     <?php foreach ($this->statusses as $key => $value) { ?>
       <option value="<?php echo $key;?>"<?php echo (isset($_GET['filter']) && $_GET['filter']==$key)? ' selected="yes"' : ''; ?>><?php echo ucfirst($value);?></option>
     <?php } ?>
   </select>
 </form>
-<h3 style="clear:none;">Nieuwste App-ideeën</h3>
+<h3 style="clear:none;text-transform: uppercase;font-size: 15px;color: #666;line-height: 24px;">Nieuwste App-ideeën</h3>
 <ul id="idpl_idea_list">
 <?php foreach ($ideas as $idea) { ?>
   <li>

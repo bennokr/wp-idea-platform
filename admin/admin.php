@@ -1,3 +1,18 @@
+<script type="text/javascript">
+jQuery(document).ready(function() {
+  jQuery('#idpl_votes-upload-image-button').click(function() {
+   formfield = jQuery('#idpl_votes-upload-image').attr('name');
+   tb_show('', 'media-upload.php?type=image&amp;TB_iframe=true');
+   return false;
+  });
+   
+  window.send_to_editor = function(html) {
+   imgurl = jQuery('img',html).attr('src');
+   jQuery('#idpl_votes-upload-image').val(imgurl);
+   tb_remove();
+  }
+});
+</script>
 <div class="wrap">
   <h2>Ideeën Platform</h2>
 
@@ -7,7 +22,11 @@
     <label>Een stem is een </label>
     <input type="text" name="idpl_votes-name" value="<?php echo get_option('idpl_votes-name');?>"/>
     <label>, meervoud </label>
-    <input type="text" name="idpl_votes-namepl" value="<?php echo get_option('idpl_votes-namepl');?>"/><br />
+    <input type="text" name="idpl_votes-namepl" value="<?php echo get_option('idpl_votes-namepl');?>"/>
+    <label>, afbeelding </label>
+    <input id="idpl_votes-upload-image" type="text" name="idpl_votes-img" value="<?php echo get_option('idpl_votes-img');?>" placeholder="url"/>
+    <input id="idpl_votes-upload-image-button" type="button" value="Kies afbeelding" />
+    <br />
     <b>Lijsten</b><br />
     <div style="width:600px;">Deze velden bevatten lijsten van items met komma's ertussen. In de database staat alleen of we item nummer 1,2,3 ... willen, dus items verwijderen of vooraan de lijst toevoegen zal voor vreemde dingen zorgen.</div>
     <label>Rollen</label>

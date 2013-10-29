@@ -36,28 +36,33 @@
     jQuery('#idpl_contact').hide();
 
     if (-1 == document.cookie.indexOf("idpl-voted-<?php echo $idea->id; ?>")) {
-      jQuery('#idpl_vote').show();
+      jQuery('#idpl_vote_image').click(function() { jQuery('#idpl_vote').submit() });
+      jQuery('#idpl_vote_image').css('cursor', 'pointer');
     } else {
       jQuery('#idpl_vote').remove();
     }
 
   });
 </script>
-<div class="back"><a href="?page_id=<?php echo the_ID(); ?>">&lt; Terug naar overzicht</a></div>
 
-<div style="float:left; padding:2em;  text-align:center;">
-  <span id="idpl_votes"><?php echo $idea->votes; ?></span> <?php echo strtolower(get_option('idpl_votes-namepl')); ?><br />
+
+
+<div style="float: left;padding: 2em;text-align: center;line-height: 40px;position: relative;margin-right: 30px;">
+  <span id="idpl_votes"><?php echo $idea->votes; ?></span>
+  <img id="idpl_vote_image" style="height:50px;position: absolute;top: 0;bottom: 0;margin: auto;padding: 10px;" src="<?php echo get_option('idpl_votes-img'); ?>" /><br />
   <form action="<?php echo $this->submit_url;?>" id="idpl_vote">
     <input type="hidden" name="action" value="<?php echo $this->ajax_names['vote']; ?>"/>
     <input type="hidden" name="id" value="<?php echo $idea->id; ?>"/>
-    <input type="submit" value="<?php echo get_option('idpl_votes-name'); ?>">
   </form>
-  <b><?php echo ucfirst($this->statusses[$idea->status]); ?></b>
 </div>
 
 <div>
-  <h1 style="padding-bottom:0;margin-bottom:0px;clear:none;"><?php echo $idea->title; ?></h1>
-  <i>door <?php echo $idea->author_name; ?>, een <?php echo strtolower($this->groups[$idea->author_group]); ?>, ingezonden op <?php echo strftime("%e %B %Y", strtotime($idea->date)); ?></i><br />
+  <p style="font-size: 11px;font-style: normal;letter-spacing: 0.05em;text-transform: uppercase;">
+    <?php echo strftime("%e %B %Y", strtotime($idea->date)); ?>
+    <a href="?page_id=<?php echo the_ID(); ?>" title="Terug naar overzicht" style="float:right; color:#666;">Terug</a>
+  </p>
+  <h1 style="padding:0;margin:0;clear:none;"><?php echo $idea->title; ?></h1>
+  <p><i>door <?php echo $idea->author_name; ?>, een <?php echo strtolower($this->groups[$idea->author_group]); ?></i></p>
 </div>
 <p style="clear:both;"><?php echo nl2br($idea->description); ?></p>
 <ul>
@@ -65,9 +70,12 @@
   <li>Data open: <?php echo (1==$idea->data_open)? 'ja': 'nee'; ?></li>
   <li>Data locatie: <?php echo $idea->data_location; ?></li>
 </ul>
-<div id="idpl_contactbtn">
-  <a href="javascript:jQuery('#idpl_contact').slideDown(); jQuery('#idpl_contactbtn').slideUp();">Neem contact op met de bedenker van dit idee!</a>
-</div>
+<p id="idpl_contactbtn">
+  <a href="javascript:jQuery('#idpl_contact').slideDown(); jQuery('#idpl_contactbtn').slideUp();">
+    <img src="<?php echo $this->plugin_url("images/koffie.png"); ?>" style="width:275px;" /><br />
+    Neem contact op met de bedenker van dit idee!
+  </a>
+</p>
 <form action="<?php echo $this->submit_url;?>" id="idpl_contact" style="background-color:#fef9e9;">
   <input type="hidden" name="action" value="<?php echo $this->ajax_names['contact']; ?>"/>
   <input type="hidden" name="idea_id" value="<?php echo $idea->id; ?>"/>
@@ -115,3 +123,6 @@
     <input type="submit" id="idpl_form_btn" value="Publiceer"/>
   </fieldset>
 </form>
+
+
+

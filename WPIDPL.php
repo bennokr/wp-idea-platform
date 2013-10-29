@@ -58,13 +58,13 @@ class WPIDPL {
         `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
         `votes` int(11) DEFAULT 0,
         `status` int(11) DEFAULT 0,
-        `author_name` varchar(128) DEFAULT NULL,
+        `author_name` text,
         `author_group` int(11) DEFAULT NULL,
-        `author_mail` varchar(128) DEFAULT NULL,
+        `author_mail` text,
         `title` varchar(256) DEFAULT NULL,
         `description` text,
-        `data_source` varchar(128) DEFAULT NULL,
-        `data_location` varchar(128) DEFAULT NULL,
+        `data_source` text,
+        `data_location` text,
         `data_open` tinyint(1) NOT NULL DEFAULT '0',
         `files` int(11) DEFAULT NULL,
         PRIMARY KEY (`id`)
@@ -103,7 +103,7 @@ class WPIDPL {
 
   // Register settings
   public function register_settings() {
-    $vs = array('idpl_votes-name','idpl_votes-namepl','idpl_groups', 'idpl_statusses');
+    $vs = array('idpl_votes-name','idpl_votes-namepl','idpl_votes-img','idpl_groups', 'idpl_statusses');
     foreach ($vs as $v) {
       register_setting('idpl_settings', $v);
     }
@@ -176,6 +176,10 @@ class WPIDPL {
         }
       }
     }
+
+    wp_enqueue_script('media-upload');
+    wp_enqueue_script('thickbox');
+    wp_enqueue_style('thickbox');
 
     $ideas = $this->db->get_results("SELECT * FROM $this->idea_table");
     $comments = $this->db->get_results("SELECT * FROM $this->comments_table");
